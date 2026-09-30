@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+
+  <meta charset="UTF-8">
+
+  <meta
+  name="viewport"
+  content="width=device-width, initial-scale=1.0">
+
+  <title>Curso</title>
+
+  <link
+  rel="stylesheet"
+  href="cursos-aluno.css">
+
+</head>
+
+<body>
+
+  <div id="cursoContainer"></div>
+
+  <script>
+
+    let user =
+    JSON.parse(
+      localStorage.getItem("logado")
+    );
+
+    let cursoIndex =
+    localStorage.getItem(
+      "cursoSelecionado"
+    );
+
+    let curso =
+    user.cursos[cursoIndex];
+
+    let container =
+    document.getElementById(
+      "cursoContainer"
+    );
+
+    renderCurso();
+
+
+    /* =========================
+       RENDER CURSO
+    ========================= */
+
+    function renderCurso(){
+
+      container.innerHTML = `
+
+        <div class="topo">
+
+          <img src="${curso.imagem}">
+
+          <div>
+
+            <h1>
+              ${curso.nome}
+            </h1>
+
+            <p>
+              ${curso.descricao}
+            </p>
+
+          </div>
+
+        </div>
+
+        <div class="aulas">
+
+          ${curso.aulas.map((aula,aulaIndex)=>`
+
+            <div class="aula-card">
+
+              <h2>
+                ${aula.titulo}
+              </h2>
+
+              <p class="material-preview">
+
+                ${aula.material.conteudo}
+
+              </p>
+
+              <button onclick="
+                abrirAula(
+                  ${aulaIndex}
+                )
+              ">
+
+                ACESSAR AULA
+
+              </button>
+
+            </div>
+
+          `).join("")}
+
+        </div>
+
+      `;
+    }
+
+
+    /* =========================
+       ABRIR AULA
+    ========================= */
+
+    function abrirAula(aulaIndex){
+
+      let aula =
+      curso.aulas[aulaIndex];
+
+      let questoesHTML = "";
+
+      aula.questoes.forEach((q,index)=>{
+
+        questoesHTML += `
+
+          <div class="questao">
+
+            <h3>
+
+              ${index + 1}.
+              ${q.pergunta}
+
+            </h3>
+
+            ${q.alternativas.map((alt,altIndex)=>`
+
+              <label class="alternativa">
+
+                <input
+                  type="radio"
+                  name="questao${index}"
+                  value="${altIndex}"
+                >
+
+                ${alt}
+
+              </label>
+
+            `).join("")}
+
+          </div>
+
+        `;
+      });
+
+      container.innerHTML = `
+
+        <div class="painel">
+
+          <button
+          class="voltar"
+          onclick="renderCurso()">
+
+            ← Voltar
+
+          </button>
+
+          <h1>
+
+            ${aula.titulo}
+
+          </h1>
+
+          <div class="material-box">
+
+            <h2>
+
+              📘 Material da Aula
+
+            </h2>
+
+            <p>
+
+              ${aula.material.conteudo}
+
+            </p>
+
+          </div>
+
+          <div class="questoes-box">
+
+            <h2>
+
+              📝 Atividade
+
+            </h2>
+
+            ${questoesHTML}
+
+          </div>
+
+          <button
+          class="enviar"
+          onclick="
+            corrigir(${aulaIndex})
+          ">
+
+            ENVIAR RESPOSTAS
+
+          </button>
+
+        </div>
+
+      `;
+    }
+
+
+    /* =========================
+       CORRIGIR
+    ========================= */
+
+    function corrigir(aulaIndex){
+
+      let aula =
+      curso.aulas[aulaIndex];
+
+      let acertos = 0;
+
+      aula.questoes.forEach((q,index)=>{
+
+        let marcada =
+        document.querySelector(
+          'input[name="questao'+index+'"]:checked'
+        );
+
+        if(!marcada) return;
+
+        if(
+          parseInt(marcada.value)
+          ===
+          q.correta
+        ){
+
+          acertos++;
+
+        }
+
+      });
+
+      let xp =
+      acertos * 50;
+
+      user.xp += xp;
+
+      localStorage.setItem(
+        "logado",
+        JSON.stringify(user)
+      );
+
+      alert(
+
+        "Você acertou "
+        + acertos +
+        " de "
+        + aula.questoes.length +
+        " questões e ganhou "
+        + xp +
+        " XP!"
+
+      );
+
+      renderCurso();
+
+    }
+
+  </script>
+
+</body>
+
+</html>

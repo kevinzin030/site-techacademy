@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Login</title>
+
+<link rel="stylesheet" href="style.css">
+</head>
+
+<body class="auth-bg">
+
+<div class="auth-container">
+
+  <!-- ESQUERDA -->
+  <div class="auth-left">
+
+    <h1 class="logo">
+  <a href="index.html">TechAcademy</a>
+</h1>
+
+    <br><br>
+
+    <h2>Log in</h2>
+  
+
+    <input id="usuario" placeholder="Email">
+    <input id="senha" type="password" placeholder="Senha">
+    <br>
+
+    <div class="auth-options">
+      <label><input type="checkbox"> Lembre de mim</label>
+      
+    </div>
+
+    <button onclick="login()">Log in</button>
+<br>
+    <p>Não tem conta? <a href="cadastro.html">Cadastro</a></p>
+
+  </div>
+
+  <!-- DIREITA -->
+  <div class="auth-right"></div>
+
+</div>
+
+<!-- JS -->
+<script src="db.js"></script>
+<script src="auth.js"></script>
+
+</body>
+</html>

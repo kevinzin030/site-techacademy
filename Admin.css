@@ -1,0 +1,526 @@
+/* =========================
+   RESET
+========================= */
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:Arial, Helvetica, sans-serif;
+}
+
+html,
+body{
+
+  width:100%;
+
+  overflow-x:hidden;
+
+  background:#06070b;
+
+  color:white;
+}
+
+body.menu-aberto{
+  overflow:hidden;
+}
+
+/* =========================
+   MENU MOBILE
+========================= */
+
+.menu-mobile{
+
+  position:fixed;
+
+  top:15px;
+  right:15px;
+
+  width:50px;
+  height:50px;
+
+  border:none;
+
+  border-radius:12px;
+
+  background:#8a2cff;
+
+  color:white;
+
+  font-size:24px;
+
+  cursor:pointer;
+
+  z-index:3000;
+
+  display:none;
+
+  align-items:center;
+
+  justify-content:center;
+
+  box-shadow:
+  0 10px 25px rgba(0,0,0,.35);
+}
+
+/* =========================
+   OVERLAY
+========================= */
+
+.overlay{
+
+  position:fixed;
+
+  inset:0;
+
+  background:rgba(0,0,0,.6);
+
+  z-index:1900;
+
+  display:none;
+}
+
+.overlay.ativo{
+  display:block;
+}
+
+/* =========================
+   SIDEBAR
+========================= */
+
+.sidebar{
+
+  width:240px;
+
+  height:100vh;
+
+  background:#050505;
+
+  border-right:1px solid #1a1a1a;
+
+  padding:25px 15px;
+
+  display:flex;
+
+  flex-direction:column;
+
+  justify-content:space-between;
+
+  position:fixed;
+
+  top:0;
+  left:0;
+
+  overflow-y:auto;
+
+  z-index:2000;
+}
+
+/* =========================
+   LOGO
+========================= */
+
+.logo-menu{
+
+  display:flex;
+
+  align-items:center;
+
+  gap:10px;
+
+  margin-bottom:40px;
+}
+
+.logo-dot{
+
+  width:8px;
+
+  height:8px;
+
+  background:#ff00ff;
+
+  display:block;
+
+  border-radius:50%;
+}
+
+.logo-menu h2{
+
+  font-size:18px;
+
+  color:white;
+
+  letter-spacing:1px;
+}
+
+/* =========================
+   MENU
+========================= */
+
+.sidebar nav{
+
+  display:flex;
+
+  flex-direction:column;
+
+  gap:12px;
+}
+
+.sidebar nav button{
+
+  width:100%;
+
+  background:#0d0d0d;
+
+  border:none;
+
+  color:white;
+
+  padding:14px;
+
+  border-radius:14px;
+
+  cursor:pointer;
+
+  text-align:left;
+
+  font-size:14px;
+
+  font-weight:bold;
+
+  transition:.3s;
+}
+
+.sidebar nav button:hover{
+
+  background:#171717;
+
+  transform:translateX(3px);
+}
+
+/* BOTÃO ATIVO */
+
+.sidebar nav button.ativo{
+
+  background:linear-gradient(
+    90deg,
+    #ff00ff,
+    #8a2cff
+  );
+}
+
+/* =========================
+   BOTÃO SAIR
+========================= */
+
+.btn-sair{
+
+  width:100%;
+
+  background:#ff2b59;
+
+  border:none;
+
+  color:white;
+
+  padding:15px;
+
+  border-radius:14px;
+
+  cursor:pointer;
+
+  font-size:15px;
+
+  font-weight:bold;
+
+  transition:.3s;
+}
+
+.btn-sair:hover{
+
+  transform:translateY(-2px);
+
+  opacity:.95;
+}
+
+/* =========================
+   DASHBOARD
+========================= */
+
+.dashboard{
+
+  margin-left:240px;
+
+  width:calc(100% - 240px);
+
+  padding:35px;
+
+  overflow-x:hidden;
+}
+
+/* =========================
+   TÍTULO
+========================= */
+
+.saudacao{
+
+  font-size:36px;
+
+  margin-bottom:30px;
+}
+
+/* =========================
+   STATUS
+========================= */
+
+.status{
+
+  display:grid;
+
+  grid-template-columns:
+  repeat(auto-fit,minmax(180px,1fr));
+
+  gap:20px;
+
+  margin-bottom:30px;
+}
+
+.status .card{
+
+  text-align:center;
+}
+
+.status .card span{
+
+  display:block;
+
+  margin-top:10px;
+
+  font-size:32px;
+
+  font-weight:bold;
+
+  color:#bb86fc;
+}
+
+/* =========================
+   CARDS
+========================= */
+
+.card{
+
+  background:#111;
+
+  border:1px solid #1f1f1f;
+
+  border-radius:20px;
+
+  padding:24px;
+
+  transition:.3s;
+}
+
+.card:hover{
+
+  border-color:#8a2cff;
+
+  transform:translateY(-3px);
+}
+
+.card h2,
+.card h3{
+
+  margin-bottom:15px;
+}
+
+.card p{
+
+  color:#aaa;
+
+  margin-bottom:10px;
+
+  line-height:1.5;
+}
+
+/* =========================
+   INPUTS
+========================= */
+
+input{
+
+  width:100%;
+
+  background:#151515;
+
+  border:1px solid #222;
+
+  color:white;
+
+  padding:14px;
+
+  border-radius:12px;
+
+  margin-bottom:15px;
+
+  outline:none;
+
+  transition:.3s;
+}
+
+input:focus{
+
+  border-color:#8a2cff;
+}
+
+input::placeholder{
+  color:#777;
+}
+
+/* =========================
+   BOTÕES
+========================= */
+
+button{
+
+  border:none;
+
+  cursor:pointer;
+}
+
+.card button{
+
+  width:100%;
+
+  background:linear-gradient(
+    90deg,
+    #ff00ff,
+    #8a2cff
+  );
+
+  color:white;
+
+  padding:14px;
+
+  border-radius:12px;
+
+  font-weight:bold;
+
+  transition:.3s;
+}
+
+.card button:hover{
+
+  opacity:.95;
+
+  transform:translateY(-2px);
+}
+
+/* EXCLUIR */
+
+.btn-excluir{
+
+  margin-top:12px;
+
+  background:#ff2b59 !important;
+}
+
+/* =========================
+   GRID CURSOS
+========================= */
+
+.cursos{
+
+  display:grid;
+
+  grid-template-columns:
+  repeat(auto-fit,minmax(260px,1fr));
+
+  gap:20px;
+
+  margin-top:20px;
+}
+
+/* =========================
+   RESPONSIVO
+========================= */
+
+@media(max-width:900px){
+
+  .menu-mobile{
+    display:flex;
+  }
+
+  .sidebar{
+
+    position:fixed;
+
+    top:0;
+
+    left:-280px;
+
+    width:260px;
+
+    height:100vh;
+
+    background:#050505;
+
+    border-right:1px solid #1a1a1a;
+
+    z-index:2500;
+
+    transition:all .4s ease;
+
+    overflow-y:auto;
+  }
+
+  .sidebar.ativo{
+
+    left:0;
+  }
+
+  .dashboard{
+
+    width:100%;
+
+    margin-left:0;
+
+    padding:90px 20px 20px;
+  }
+
+  .saudacao{
+
+    font-size:28px;
+  }
+
+}
+
+@media(max-width:600px){
+
+  .sidebar nav button{
+
+    padding:13px;
+
+    font-size:13px;
+  }
+
+  .dashboard{
+
+    padding:90px 15px 20px;
+  }
+
+  .saudacao{
+
+    font-size:24px;
+  }
+
+  .status{
+
+    grid-template-columns:1fr;
+  }
+
+  .card{
+
+    padding:18px;
+  }
+
+}

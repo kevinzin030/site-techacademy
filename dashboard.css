@@ -1,0 +1,788 @@
+/* =========================================
+   RESET
+========================================= */
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:'Roboto',sans-serif;
+}
+
+html{
+  scroll-behavior:smooth;
+}
+
+body{
+  background:#0b0b0f;
+  color:white;
+  overflow-x:hidden;
+
+  display:flex;
+}
+
+/* =========================================
+   LAYOUT
+========================================= */
+
+.layout{
+  width:100%;
+  display:flex;
+}
+
+/* =========================================
+   HAMBURGUER
+========================================= */
+
+.hamburguer{
+  display:none;
+
+  position:fixed;
+
+  top:20px;
+  left:20px;
+
+  z-index:4000;
+
+  width:50px;
+  height:50px;
+
+  border:none;
+  border-radius:12px;
+
+  background:
+  linear-gradient(
+    135deg,
+    #7b2ff7,
+    #f107a3
+  );
+
+  color:white;
+
+  font-size:25px;
+  cursor:pointer;
+
+  box-shadow:
+  0 5px 20px rgba(0,0,0,0.4);
+}
+
+/* =========================================
+   SIDEBAR
+========================================= */
+
+.sidebar{
+  width:280px;
+
+  background:#111;
+
+  border-right:
+  1px solid rgba(255,255,255,0.05);
+
+  padding:30px;
+
+  position:fixed;
+
+  top:0;
+  left:0;
+
+  height:100vh;
+
+  z-index:2000;
+
+  transition:0.3s;
+}
+
+/* =========================================
+   LOGO
+========================================= */
+
+.logo{
+  margin-bottom:50px;
+}
+
+.logo a{
+  text-decoration:none;
+
+  color:#c400ff;
+
+  font-size:38px;
+  font-weight:bold;
+}
+
+/* =========================================
+   MENU
+========================================= */
+
+.menu{
+  display:flex;
+
+  flex-direction:column;
+
+  gap:15px;
+}
+
+.menu a{
+  text-decoration:none;
+
+  color:#ccc;
+
+  padding:15px;
+
+  border-radius:15px;
+
+  transition:0.3s;
+
+  font-size:18px;
+
+  display:flex;
+  align-items:center;
+  gap:12px;
+}
+
+.menu a:hover{
+  background:
+  linear-gradient(
+    135deg,
+    #7b2ff7,
+    #f107a3
+  );
+
+  color:white;
+
+  transform:translateX(5px);
+}
+
+/* =========================================
+   MAIN
+========================================= */
+
+.main{
+  width:calc(100% - 280px);
+
+  margin-left:280px;
+
+  padding:40px;
+
+  min-height:100vh;
+}
+
+/* =========================================
+   OVERLAY
+========================================= */
+
+.overlay{
+  position:fixed;
+
+  width:100%;
+  height:100vh;
+
+  background:rgba(0,0,0,0.6);
+
+  z-index:1500;
+
+  opacity:0;
+  visibility:hidden;
+
+  transition:0.3s;
+}
+
+.overlay.ativo{
+  opacity:1;
+  visibility:visible;
+}
+
+/* =========================================
+   TOPO DASHBOARD
+========================================= */
+
+.dashboard-topo{
+  display:flex;
+
+  justify-content:space-between;
+
+  align-items:center;
+
+  margin-bottom:40px;
+
+  padding-top:20px;
+}
+
+.dashboard-topo h1{
+  font-size:55px;
+  margin-bottom:10px;
+}
+
+.dashboard-topo p{
+  color:#aaa;
+  font-size:18px;
+}
+
+/* =========================================
+   PERFIL MINI
+========================================= */
+
+.perfil-mini{
+  cursor:pointer;
+}
+
+.perfil-mini img{
+  width:80px;
+  height:80px;
+
+  border-radius:50%;
+
+  object-fit:cover;
+
+  border:3px solid #c400ff;
+
+  transition:0.3s;
+}
+
+.perfil-mini img:hover{
+  transform:scale(1.05);
+}
+
+/* =========================================
+   BUSCA
+========================================= */
+
+.busca{
+  margin-bottom:30px;
+}
+
+.busca input{
+  width:100%;
+
+  padding:16px;
+
+  border:none;
+
+  border-radius:18px;
+
+  background:#171717;
+  color:white;
+
+  outline:none;
+
+  font-size:16px;
+}
+
+/* =========================================
+   INFO CARDS
+========================================= */
+
+.info-cards{
+  display:flex;
+
+  gap:20px;
+
+  margin-bottom:35px;
+}
+
+.info-card{
+  flex:1;
+
+  background:#171717;
+
+  padding:25px;
+
+  border-radius:25px;
+
+  box-shadow:
+  0 5px 20px rgba(0,0,0,0.3);
+
+  transition:0.3s;
+}
+
+.info-card:hover{
+  transform:translateY(-5px);
+}
+
+.info-card h3{
+  margin-bottom:10px;
+
+  font-size:20px;
+}
+
+.info-card span{
+  font-size:35px;
+  font-weight:bold;
+}
+
+/* =========================================
+   PROGRESSO
+========================================= */
+
+.progresso-box{
+  background:#171717;
+
+  padding:35px;
+
+  border-radius:30px;
+
+  margin-bottom:40px;
+
+  box-shadow:
+  0 5px 20px rgba(0,0,0,0.3);
+}
+
+.progresso-box h2{
+  margin-bottom:15px;
+
+  font-size:35px;
+}
+
+.barra{
+  width:100%;
+  height:16px;
+
+  background:#2a2a2a;
+
+  border-radius:20px;
+
+  overflow:hidden;
+
+  margin:20px 0;
+}
+
+.barra-fill{
+  width:75%;
+  height:100%;
+
+  background:
+  linear-gradient(
+    90deg,
+    #c400ff,
+    #ff00aa
+  );
+
+  border-radius:20px;
+}
+
+/* =========================================
+   TITULOS
+========================================= */
+
+.titulo-section{
+  font-size:35px;
+
+  margin-bottom:30px;
+}
+
+/* =========================================
+   CURSOS
+========================================= */
+
+.cursos-grid{
+  display:grid;
+
+  grid-template-columns:
+  repeat(auto-fit,minmax(320px,1fr));
+
+  gap:25px;
+
+  margin-bottom:40px;
+}
+
+.curso-card{
+  background:#171717;
+
+  border-radius:30px;
+
+  overflow:hidden;
+
+  transition:0.3s;
+
+  box-shadow:
+  0 5px 20px rgba(0,0,0,0.3);
+}
+
+.curso-card:hover{
+  transform:translateY(-8px);
+}
+
+.curso-card img{
+  width:100%;
+  height:220px;
+
+  object-fit:cover;
+}
+
+.curso-info{
+  padding:25px;
+}
+
+.categoria{
+  color:#ff00aa;
+
+  font-size:13px;
+
+  font-weight:bold;
+}
+
+.curso-info h3{
+  margin:15px 0;
+
+  font-size:25px;
+}
+
+.curso-info p{
+  color:#aaa;
+
+  margin-bottom:20px;
+
+  line-height:1.5;
+}
+
+.curso-info button{
+  width:100%;
+
+  padding:15px;
+
+  border:none;
+
+  border-radius:20px;
+
+  background:
+  linear-gradient(
+    135deg,
+    #7b2ff7,
+    #f107a3
+  );
+
+  color:white;
+
+  cursor:pointer;
+
+  font-size:16px;
+  font-weight:bold;
+
+  transition:0.3s;
+}
+
+.curso-info button:hover{
+  opacity:0.9;
+}
+
+/* =========================================
+   GRID INFERIOR
+========================================= */
+
+.bottom-grid{
+  display:grid;
+
+  grid-template-columns:1fr 1fr;
+
+  gap:25px;
+}
+
+.box-dark{
+  background:#171717;
+
+  padding:30px;
+
+  border-radius:30px;
+
+  box-shadow:
+  0 5px 20px rgba(0,0,0,0.3);
+}
+
+.box-dark h2{
+  margin-bottom:15px;
+}
+
+/* =========================================
+   NOTAS
+========================================= */
+
+.nota-item{
+  display:flex;
+
+  justify-content:space-between;
+
+  margin-top:15px;
+
+  padding:15px;
+
+  border-radius:15px;
+
+  background:#222;
+}
+
+/* =========================================
+   DOCUMENTOS
+========================================= */
+
+.doc{
+  margin-top:15px;
+
+  padding:15px;
+
+  border-radius:15px;
+
+  background:#222;
+}
+
+/* =========================================
+   PERFIL PAGE
+========================================= */
+
+.perfil-page{
+  max-width:900px;
+
+  margin:auto;
+
+  padding:40px 20px;
+}
+
+/* =========================================
+   PERFIL TOPO
+========================================= */
+
+.perfil-topo{
+  display:flex;
+
+  align-items:center;
+
+  gap:20px;
+
+  margin-bottom:40px;
+}
+
+.perfil-topo button{
+  width:45px;
+  height:45px;
+
+  border:none;
+
+  border-radius:12px;
+
+  background:#222;
+
+  color:white;
+
+  cursor:pointer;
+
+  font-size:20px;
+}
+
+/* =========================================
+   PERFIL CARD
+========================================= */
+
+.perfil-card{
+  background:#171717;
+
+  border-radius:30px;
+
+  padding:40px;
+
+  text-align:center;
+
+  position:relative;
+
+  margin-bottom:30px;
+}
+
+.perfil-card img{
+  width:150px;
+  height:150px;
+
+  border-radius:50%;
+
+  object-fit:cover;
+
+  border:4px solid #c400ff;
+
+  margin-bottom:20px;
+}
+
+.editar-foto{
+  position:absolute;
+
+  top:40px;
+  right:40px;
+
+  border:none;
+
+  width:50px;
+  height:50px;
+
+  border-radius:50%;
+
+  background:#c400ff;
+
+  color:white;
+
+  cursor:pointer;
+}
+
+/* =========================================
+   STATUS / DOCUMENTOS
+========================================= */
+
+.status-card,
+.documentos-card,
+.desativar-card{
+  background:#171717;
+
+  border-radius:30px;
+
+  padding:30px;
+
+  margin-bottom:30px;
+}
+
+.perfil-info{
+  display:flex;
+
+  flex-direction:column;
+
+  gap:15px;
+
+  margin-top:20px;
+}
+
+.perfil-info span{
+  background:#222;
+
+  padding:15px;
+
+  border-radius:15px;
+}
+
+/* =========================================
+   INPUTS
+========================================= */
+
+.documentos-card input{
+  width:100%;
+
+  padding:15px;
+
+  margin-top:15px;
+
+  border:none;
+
+  border-radius:15px;
+
+  background:#222;
+
+  color:white;
+
+  outline:none;
+}
+
+/* =========================================
+   BOTÕES
+========================================= */
+
+.documentos-card button,
+.btn-sair{
+  width:100%;
+
+  padding:15px;
+
+  margin-top:20px;
+
+  border:none;
+
+  border-radius:15px;
+
+  background:
+  linear-gradient(
+    135deg,
+    #7b2ff7,
+    #f107a3
+  );
+
+  color:white;
+
+  cursor:pointer;
+
+  font-weight:bold;
+}
+
+.btn-desativar{
+  width:100%;
+
+  padding:15px;
+
+  margin-top:20px;
+
+  border:none;
+
+  border-radius:15px;
+
+  background:#ff0033;
+
+  color:white;
+
+  cursor:pointer;
+
+  font-weight:bold;
+}
+
+/* =========================================
+   RESPONSIVO
+========================================= */
+
+@media(max-width:900px){
+
+  .hamburguer{
+    display:block;
+  }
+
+  .sidebar{
+    left:-300px;
+  }
+
+  .sidebar.ativo{
+    left:0;
+  }
+
+  .main{
+    width:100%;
+
+    margin-left:0;
+
+    padding:100px 20px 30px;
+  }
+
+  .dashboard-topo{
+    flex-direction:column;
+
+    text-align:center;
+
+    gap:20px;
+  }
+
+  .dashboard-topo h1{
+    font-size:40px;
+  }
+
+  .bottom-grid{
+    grid-template-columns:1fr;
+  }
+
+  .info-cards{
+    flex-direction:column;
+  }
+
+}
+
+@media(max-width:500px){
+
+  .dashboard-topo h1{
+    font-size:30px;
+  }
+
+  .titulo-section{
+    font-size:26px;
+  }
+
+  .curso-card img{
+    height:180px;
+  }
+
+}

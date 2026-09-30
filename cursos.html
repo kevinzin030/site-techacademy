@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+
+  <meta charset="UTF-8">
+
+  <meta name="viewport"
+  content="width=device-width, initial-scale=1.0">
+
+  <title>Cursos</title>
+
+  <link rel="stylesheet" href="cursos.css">
+
+</head>
+
+<body>
+
+  <div class="topo">
+
+    <h1>Cursos Disponíveis</h1>
+
+    <input
+      type="text"
+      id="pesquisa"
+      placeholder="Pesquisar curso..."
+    >
+
+  </div>
+
+  <div
+    id="listaCursos"
+    class="grid-cursos"
+  ></div>
+
+  <div id="cursoContainer"></div>
+
+  <script src="CURSOS.js"></script>
+
+  <script>
+
+    /* =========================
+    LOGIN
+    ========================= */
+
+    let user =
+    JSON.parse(localStorage.getItem("logado"));
+
+    if(!user){
+
+      alert("Faça login");
+
+      window.location.href =
+      "login.html";
+
+    }
+
+    /* =========================
+    CURSOS DISPONÍVEIS
+    ========================= */
+
+    const listaCursos =
+    document.getElementById(
+      "listaCursos"
+    );
+
+    const pesquisa =
+    document.getElementById(
+      "pesquisa"
+    );
+
+    renderCursos();
+
+
+    function renderCursos(){
+
+      let busca =
+      pesquisa.value.toLowerCase();
+
+      listaCursos.innerHTML =
+      "";
+
+      cursosBase.forEach((curso,index)=>{
+
+        if(
+          !curso.nome
+          .toLowerCase()
+          .includes(busca)
+        ) return;
+
+        listaCursos.innerHTML += `
+
+          <div class="curso-card">
+
+            <img src="${curso.imagem}">
+
+            <div class="curso-info">
+
+              <span class="categoria">
+                ${curso.categoria}
+              </span>
+
+              <h2>
+                ${curso.nome}
+              </h2>
+
+              <p>
+                ${curso.descricao}
+              </p>
+
+              <button onclick="
+                matricular(${index})
+              ">
+                Matricular-se
+              </button>
+
+            </div>
+
+          </div>
+
+        `;
+      });
+
+    }
+
+    pesquisa.addEventListener(
+      "input",
+      renderCursos
+    );
+
+    /* =========================
+    MATRICULAR
+    ========================= */
+
+    function matricular(index){
+
+      if(!user.cursos){
+
+        user.cursos = [];
+
+      }
+
+      let cursoExiste =
+      user.cursos.find(
+        c => c.id === cursosBase[index].id
+      );
+
+      if(cursoExiste){
+
+        abrirCurso(index);
+        return;
+
+      }
+
+      user.cursos.push(
+        cursosBase[index]
+      );
+
+      localStorage.setItem(
+        "logado",
+        JSON.stringify(user)
+      );
+
+      alert(
+        "Matrícula realizada!"
+      );
+
+      abrirCurso(index);
+
+    }
+
+    /* =========================
+    ABRIR CURSO
+    ========================= */
+
+    function abrirCurso(index){
+
+      let curso =
+      cursosBase[index];
+
+      let container =
+      document.getElementById(
+        "cursoContainer"
+      );
+
+      container.innerHTML = `
+
+        <div class="aulas">
+
+          ${curso.aulas.map((aula,aulaIndex)=>`
+
+            <div class="aula-card">
+
+              <h2>
+                ${aula.titulo}
+              </h2>
+
+              <p>
+                ${aula.material.conteudo}
+              </p>
+
+              <button onclick="
+                abrirQuestoes(
+                  ${index},
+                  ${aulaIndex}
+                )
+              ">
+                Fazer Atividade
+              </button>
+
+            </div>
+
+          `).join("")}
+
+        </div>
+
+      `;
+
+      window.scrollTo({
+        top:document.body.scrollHeight,
+        behavior:"smooth"
+      });
+
+    }
+
+    /* =========================
+    QUESTÕES
+    ========================= */
+
+    function abrirQuestoes(
+      cursoIndex,
+      aulaIndex
+    ){
+
+      let curso =
+      cursosBase[cursoIndex];
+
+      let aula =
+      curso.aulas[aulaIndex];
+
+      let container =
+      document.getElementById(
+        "cursoContainer"
+      );
+
+      let html = "";
+
+      aula.questoes.forEach(
+      (q,index)=>{
+
+        html += `
+
+          <div class="questao">
+
+            <h3>
+              ${q.pergunta}
+            </h3>
+
+            ${q.alternativas.map(
+            (alt,altIndex)=>`
+
+              <label class="alternativa">
+
+                <input
+                  type="radio"
+                  name="questao${index}"
+                  value="${altIndex}"
+                >
+
+                ${alt}
+
+              </label>
+
+            `).join("")}
+
+          </div>
+
+        `;
+      });
+
+      container.innerHTML = `
+
+        <div class="painel">
+
+          <h1>
+            ${aula.titulo}
+          </h1>
+
+          ${html}
+
+          <button onclick="
+            corrigir(
+              ${cursoIndex},
+              ${aulaIndex}
+            )
+          ">
+            Enviar Respostas
+          </button>
+
+        </div>
+
+      `;
+
+    }
+
+    /* =========================
+    CORRIGIR
+    ========================= */
+
+    function corrigir(
+      cursoIndex,
+      aulaIndex
+    ){
+
+      let aula =
+      cursosBase[cursoIndex]
+      .aulas[aulaIndex];
+
+      let acertos = 0;
+
+      aula.questoes.forEach(
+      (q,index)=>{
+
+        let marcada =
+        document.querySelector(
+          'input[name="questao'+index+'"]:checked'
+        );
+
+        if(!marcada) return;
+
+        if(
+          parseInt(marcada.value)
+          ===
+          q.correta
+        ){
+
+          acertos++;
+
+        }
+
+      });
+
+      let xp =
+      acertos * 50;
+
+      if(!user.xp){
+
+        user.xp = 0;
+
+      }
+
+      user.xp += xp;
+
+      localStorage.setItem(
+        "logado",
+        JSON.stringify(user)
+      );
+
+      alert(
+        "Você acertou "
+        + acertos +
+        " questão(ões)\n"
+        + "XP ganho: "
+        + xp
+      );
+
+      abrirCurso(cursoIndex);
+
+    }
+
+  </script>
+
+</body>
+
+</html>

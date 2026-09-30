@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Gestor TechAcademy</title>
+
+<link rel="stylesheet" href="gestor.css">
+
+</head>
+
+<body onload="initGestor()">
+
+<button class="menu-mobile" onclick="toggleMenu()">☰</button>
+
+<div class="overlay" id="overlay" onclick="toggleMenu()"></div>
+
+<div class="layout">
+
+  <aside class="sidebar" id="sidebar">
+
+    <div>
+
+      <div class="logo">
+        <span>■</span>
+        <h2>TECHACADEMY</h2>
+      </div>
+
+      <nav>
+
+        <button onclick="abrirDashboard()">
+          Dashboard
+        </button>
+
+        <button onclick="renderCursos()">
+          Gerenciar Cursos
+        </button>
+
+        <button onclick="abrirNovoCurso()">
+          Novo Curso
+        </button>
+
+        <button onclick="renderRelatorios()">
+          Relatórios
+        </button>
+
+      </nav>
+
+    </div>
+
+    <button class="btn-logout" onclick="confirmarLogout()">
+      Sair
+    </button>
+
+  </aside>
+
+  <main class="conteudo">
+
+    <section class="hero">
+      <h1>Gestão Tech Academy</h1>
+      <p>Dashboard Administrativo de Performance e Crescimento</p>
+    </section>
+
+    <section id="metricas"></section>
+    <section id="app"></section>
+
+  </main>
+
+</div>
+
+<script src="db.js"></script>
+<script src="gestor.js"></script>
+
+</body>
+</html>

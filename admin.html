@@ -1,0 +1,714 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
+
+<title>Painel Admin</title>
+
+<link rel="stylesheet" href="Admin.css">
+
+</head>
+
+<body onload="initAdmin()">
+
+<!-- MENU MOBILE -->
+
+<button
+class="menu-mobile"
+onclick="toggleMenu()">
+
+☰
+
+</button>
+
+<!-- OVERLAY -->
+
+<div
+id="overlay"
+class="overlay"
+onclick="fecharMenu()">
+
+</div>
+
+<!-- SIDEBAR -->
+
+<aside
+class="sidebar"
+id="sidebar">
+
+  <div>
+
+    <div class="logo-menu">
+
+      <span class="logo-dot"></span>
+
+      <h2>TECHACADEMY</h2>
+
+    </div>
+
+    <nav>
+
+      <button
+      class="ativo"
+      onclick="mostrar('dashboard', this)">
+
+        Dashboard
+
+      </button>
+
+      <button
+      onclick="mostrar('cursos', this)">
+
+        Gerenciar Cursos
+
+      </button>
+
+      <button
+      onclick="mostrar('usuarios', this)">
+
+        Alunos
+
+      </button>
+
+      <button
+      onclick="mostrar('gestores', this)">
+
+        Gestores
+
+      </button>
+
+      <button
+      onclick="mostrar('admins', this)">
+
+        Admins
+
+      </button>
+
+    </nav>
+
+  </div>
+
+  <button
+  class="btn-sair"
+  onclick="logout()">
+
+    Sair
+
+  </button>
+
+</aside>
+
+<!-- DASHBOARD -->
+
+<div class="dashboard">
+
+  <h1 class="saudacao">
+    Painel do Administrador
+  </h1>
+
+  <!-- STATUS -->
+
+  <div class="status">
+
+    <div class="card">
+      <h3>Cursos</h3>
+      <span id="totalCursos">0</span>
+    </div>
+
+    <div class="card">
+      <h3>Alunos</h3>
+      <span id="totalAlunos">0</span>
+    </div>
+
+    <div class="card">
+      <h3>Gestores</h3>
+      <span id="totalGestores">0</span>
+    </div>
+
+    <div class="card">
+      <h3>Admins</h3>
+      <span id="totalAdmins">0</span>
+    </div>
+
+  </div>
+
+  <!-- CONTEÚDO -->
+
+  <div id="conteudo"></div>
+
+</div>
+
+<script>
+
+/* =========================
+   DATABASE
+========================= */
+
+let admins =
+JSON.parse(localStorage.getItem("admins")) || [];
+
+let gestores =
+JSON.parse(localStorage.getItem("gestores")) || [];
+
+let alunos =
+JSON.parse(localStorage.getItem("alunos")) || [];
+
+let cursos =
+JSON.parse(localStorage.getItem("cursos")) || [];
+
+/* =========================
+   INIT
+========================= */
+
+function initAdmin(){
+
+  let user =
+  JSON.parse(localStorage.getItem("logado"));
+
+  if(!user || user.tipo !== "admin"){
+
+    alert("Acesso negado");
+
+    location.href = "login.html";
+
+    return;
+  }
+
+  atualizarStatus();
+
+  renderDashboard();
+}
+
+/* =========================
+   MENU MOBILE
+========================= */
+
+function toggleMenu(){
+
+  document
+  .getElementById("sidebar")
+  .classList.toggle("ativo");
+
+  document
+  .getElementById("overlay")
+  .classList.toggle("ativo");
+}
+
+function fecharMenu(){
+
+  document
+  .getElementById("sidebar")
+  .classList.remove("ativo");
+
+  document
+  .getElementById("overlay")
+  .classList.remove("ativo");
+}
+
+/* =========================
+   STATUS
+========================= */
+
+function atualizarStatus(){
+
+  document.getElementById(
+    "totalCursos"
+  ).innerText = cursos.length;
+
+  document.getElementById(
+    "totalAlunos"
+  ).innerText = alunos.length;
+
+  document.getElementById(
+    "totalGestores"
+  ).innerText = gestores.length;
+
+  document.getElementById(
+    "totalAdmins"
+  ).innerText = admins.length;
+}
+
+/* =========================
+   SALVAR
+========================= */
+
+function salvar(){
+
+  localStorage.setItem(
+    "admins",
+    JSON.stringify(admins)
+  );
+
+  localStorage.setItem(
+    "gestores",
+    JSON.stringify(gestores)
+  );
+
+  localStorage.setItem(
+    "alunos",
+    JSON.stringify(alunos)
+  );
+
+  localStorage.setItem(
+    "cursos",
+    JSON.stringify(cursos)
+  );
+
+  atualizarStatus();
+}
+
+/* =========================
+   LOGOUT
+========================= */
+
+function logout(){
+
+  let confirmar =
+  confirm("Deseja realmente sair da plataforma?");
+
+  if(!confirmar){
+    return;
+  }
+
+  alert("Logout realizado com sucesso!");
+
+  localStorage.removeItem("logado");
+
+  location.href = "login.html";
+}
+
+/* =========================
+   MENU
+========================= */
+
+function mostrar(tipo, el){
+
+  document
+  .querySelectorAll("nav button")
+  .forEach(btn => {
+
+    btn.classList.remove("ativo");
+
+  });
+
+  el.classList.add("ativo");
+
+  fecharMenu();
+
+  if(tipo === "dashboard"){
+    renderDashboard();
+  }
+
+  if(tipo === "cursos"){
+    renderCursos();
+  }
+
+  if(tipo === "usuarios"){
+    renderUsuarios();
+  }
+
+  if(tipo === "gestores"){
+    renderGestores();
+  }
+
+  if(tipo === "admins"){
+    renderAdmins();
+  }
+}
+
+/* =========================
+   DASHBOARD
+========================= */
+
+function renderDashboard(){
+
+  document.getElementById(
+    "conteudo"
+  ).innerHTML = `
+
+    <div class="card">
+
+      <h2>
+        Plataforma Online ✅
+      </h2>
+
+      <br>
+
+      <p>
+        📚 Cursos:
+        ${cursos.length}
+      </p>
+
+      <p>
+        🎓 Alunos:
+        ${alunos.length}
+      </p>
+
+      <p>
+        🧑‍💼 Gestores:
+        ${gestores.length}
+      </p>
+
+      <p>
+        👑 Admins:
+        ${admins.length}
+      </p>
+
+    </div>
+
+  `;
+}
+
+/* =========================
+   CURSOS
+========================= */
+
+function renderCursos(){
+
+  document.getElementById(
+    "conteudo"
+  ).innerHTML = `
+
+    <div class="card">
+
+      <h2>Novo Curso</h2>
+
+      <br>
+
+      <input
+      id="cursoNome"
+      placeholder="Nome do curso">
+
+      <input
+      id="cursoTempo"
+      placeholder="Tempo do curso">
+
+      <button onclick="criarCurso()">
+
+        Criar Curso
+
+      </button>
+
+    </div>
+
+    <br>
+
+    <div class="cursos">
+
+      ${cursos.map(c => `
+
+        <div class="card">
+
+          <h3>${c.nome}</h3>
+
+          <p>
+            ⏱️ ${c.tempo || "Sem tempo"}
+          </p>
+
+          <button
+          class="btn-excluir"
+          onclick="excluirCurso(${c.id})">
+
+            Excluir Curso
+
+          </button>
+
+        </div>
+
+      `).join("")}
+
+    </div>
+
+  `;
+}
+
+function criarCurso(){
+
+  let nome =
+  document.getElementById(
+    "cursoNome"
+  ).value;
+
+  let tempo =
+  document.getElementById(
+    "cursoTempo"
+  ).value;
+
+  if(!nome){
+
+    alert("Digite o nome");
+
+    return;
+  }
+
+  cursos.push({
+
+    id:Date.now(),
+
+    nome,
+
+    tempo
+
+  });
+
+  salvar();
+
+  renderCursos();
+}
+
+function excluirCurso(id){
+
+  if(!confirm("Excluir curso?")){
+    return;
+  }
+
+  cursos =
+  cursos.filter(
+    c => c.id !== id
+  );
+
+  salvar();
+
+  renderCursos();
+}
+
+/* =========================
+   ALUNOS
+========================= */
+
+function renderUsuarios(){
+
+  document.getElementById(
+    "conteudo"
+  ).innerHTML = `
+
+    <div class="cursos">
+
+      ${alunos.map(a => `
+
+        <div class="card">
+
+          <h3>${a.nome}</h3>
+
+          <p>
+            👤 ${a.login}
+          </p>
+
+          <p>
+            📚 Cursos:
+            ${a.cursos?.length || 0}
+          </p>
+
+        </div>
+
+      `).join("")}
+
+    </div>
+
+  `;
+}
+
+/* =========================
+   GESTORES
+========================= */
+
+function renderGestores(){
+
+  document.getElementById(
+    "conteudo"
+  ).innerHTML = `
+
+    <div class="card">
+
+      <h2>Novo Gestor</h2>
+
+      <br>
+
+      <input
+      id="gNome"
+      placeholder="Nome">
+
+      <input
+      id="gLogin"
+      placeholder="Login">
+
+      <input
+      id="gSenha"
+      placeholder="Senha">
+
+      <button
+      onclick="criarGestor()">
+
+        Criar Gestor
+
+      </button>
+
+    </div>
+
+    <br>
+
+    <div class="cursos">
+
+      ${gestores.map(g => `
+
+        <div class="card">
+
+          <h3>${g.nome}</h3>
+
+          <p>
+            👤 ${g.login}
+          </p>
+
+        </div>
+
+      `).join("")}
+
+    </div>
+
+  `;
+}
+
+function criarGestor(){
+
+  let nome =
+  document.getElementById(
+    "gNome"
+  ).value;
+
+  let login =
+  document.getElementById(
+    "gLogin"
+  ).value;
+
+  let senha =
+  document.getElementById(
+    "gSenha"
+  ).value;
+
+  if(!nome || !login || !senha){
+
+    alert("Preencha tudo");
+
+    return;
+  }
+
+  gestores.push({
+
+    nome,
+    login,
+    senha,
+    tipo:"gestor"
+
+  });
+
+  salvar();
+
+  renderGestores();
+}
+
+/* =========================
+   ADMINS
+========================= */
+
+function renderAdmins(){
+
+  document.getElementById(
+    "conteudo"
+  ).innerHTML = `
+
+    <div class="card">
+
+      <h2>Novo Admin</h2>
+
+      <br>
+
+      <input
+      id="aNome"
+      placeholder="Nome">
+
+      <input
+      id="aLogin"
+      placeholder="Login">
+
+      <input
+      id="aSenha"
+      placeholder="Senha">
+
+      <button
+      onclick="criarAdmin()">
+
+        Criar Admin
+
+      </button>
+
+    </div>
+
+    <br>
+
+    <div class="cursos">
+
+      ${admins.map(a => `
+
+        <div class="card">
+
+          <h3>${a.nome}</h3>
+
+          <p>
+            👤 ${a.login}
+          </p>
+
+        </div>
+
+      `).join("")}
+
+    </div>
+
+  `;
+}
+
+function criarAdmin(){
+
+  let nome =
+  document.getElementById(
+    "aNome"
+  ).value;
+
+  let login =
+  document.getElementById(
+    "aLogin"
+  ).value;
+
+  let senha =
+  document.getElementById(
+    "aSenha"
+  ).value;
+
+  if(!nome || !login || !senha){
+
+    alert("Preencha tudo");
+
+    return;
+  }
+
+  admins.push({
+
+    nome,
+    login,
+    senha,
+    tipo:"admin"
+
+  });
+
+  salvar();
+
+  renderAdmins();
+}
+
+</script>
+
+</body>
+</html>

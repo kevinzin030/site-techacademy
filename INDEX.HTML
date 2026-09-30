@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TechAcademy</title>
+
+<link rel="stylesheet" href="style.css">
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+
+</head>
+
+<body>
+
+<header>
+  <h1 class="logo">
+  <a href="index.html">TechAcademy</a>
+</h1>
+
+
+  <nav>
+    <a href="#">SOBRE NÓS</a>
+    <a href="cursos.html">CURSOS</a>
+    <a href="login.html">LOGIN</a>
+  </nav>
+
+  <button onclick="irLogin()">Entrar</button>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+
+  <!-- VÍDEO DE FUNDO -->
+  <video autoplay muted loop class="video-bg">
+    <source src="ProductService Landing Page Website in Black Blue Techflux Style.mp4">
+
+  </video>
+
+  <!-- CONTEÚDO -->
+  <div class="hero-content">
+    <h2>TECH ACADEMY</h2>
+    <p>Aprenda tecnologia de forma prática e gamificada</p>
+    <button onclick="irLogin()">SAIBA MAIS</button>
+  </div>
+
+</section>
+
+
+<!-- CURSOS -->
+<section class="cursos-section">
+  <h2>PRINCIPAIS CURSOS</h2>
+
+  <div class="cursos">
+    <div class="card" onclick="bloqueado()">
+      <h3>DESENVOLVIMENTO WEB RESPONSIVO </h3>
+      <br>
+      <p>Este curso transforma sua visão técnica em uma força de impacto positivo, ensinando você a construir produtos que respeitam o ser humano e o planeta.</p>
+
+       <div class="tempo">
+    ⏱ 2h 30min
+  </div>
+
+      <button>Matricule-se</button>
+    </div>
+
+    <div class="card" onclick="bloqueado()">
+      <h3>BANCO DE DADOS COM SQL.</h3>
+      <br>
+      <p>Aprenda a gerenciar o coração de qualquer aplicação com foco em integridade, segurança e responsabilidade social. Este curso vai além do SELECT e JOIN, capacitando você a projetar bancos de dados que respeitam a LGPD/GDPR.</p>
+      
+       <div class="tempo">
+    ⏱ 2h 30min
+  </div>
+      
+      <button>Matricule-se</button>
+    </div>
+
+    <div class="card" onclick="bloqueado()">
+      <h3>ENGENHARIA DE SOFTWARE </h3>
+      <br>
+      <p>Este curso é o divisor de águas para quem deseja deixar de ser apenas um "escritor de código" para se tornar um arquiteto de soluções sustentáveis.</p>
+      
+       <div class="tempo">
+    ⏱ 2h 30min
+  </div>
+      
+      <button>Matricule-se</button>
+    </div>
+  </div>
+</section>
+
+
+ </div> <!-- fecha cursos -->
+
+<div class="explorar">
+  <button onclick="irLogin()">EXPLORAR CURSOS</button>
+</div>
+
+</section>
+
+
+<script>
+function bloqueado(){
+  alert("Faça login!");
+  window.location.href="login.html";
+}
+
+function irLogin(){
+  window.location.href="login.html";
+}
+</script>
+
+<script src="js/db.js"></script>
+<script src="js/auth.js"></script>
+<br><br><br>
+<footer class="footer">
+
+  <div class="footer-container">
+
+    <!-- LOGO / SOBRE -->
+    <div class="footer-box">
+      <h2>TechAcademy</h2>
+      <p>Plataforma de ensino focada em tecnologia, inovação e aprendizado gamificado.</p>
+    </div>
+
+    <!-- LINKS -->
+    <div class="footer-box">
+      <h3>Links</h3>
+      <a href="#">Sobre nós</a>
+      <a href="#">Cursos</a>
+      <a href="login.html">Login</a>
+    </div>
+
+    <!-- CONTATO -->
+    <div class="footer-box">
+      <h3>Contato</h3>
+      <p>Email: suporte@techacademy.com</p>
+      <p>Telefone: (11) 99999-9999</p>
+    </div>
+
+  </div>
+
+  <div class="footer-bottom">
+    <p>© 2026 TechAcademy - Todos os direitos reservados</p>
+  </div>
+
+</footer>
+
+
+</body>
+</html>
