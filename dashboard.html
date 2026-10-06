@@ -1,100 +1,66 @@
 <!DOCTYPE html>
-<html lang="pt-br">
-
+<html lang="pt-BR">
 <head>
-
 <meta charset="UTF-8">
-
-<meta name="viewport"
-content="width=device-width, initial-scale=1.0">
-
-<title>Dashboard</title>
-
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TechAcademy | Portal do Aluno</title>
 <link rel="stylesheet" href="dashboard.css">
-
-<link rel="preconnect"
-href="https://fonts.googleapis.com">
-
-<link href="
-https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap
-"
-rel="stylesheet">
-
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 </head>
-
 <body onload="init()">
 
-<!-- HAMBURGUER -->
-<button
-class="hamburguer"
-onclick="toggleSidebar()">
-
-☰
-
-</button>
+<button class="hamburguer" onclick="toggleSidebar()" aria-label="Abrir menu">☰</button>
 
 <div class="layout">
-
-  <!-- SIDEBAR -->
   <aside class="sidebar" id="sidebar">
-
-    <div class="logo">
-
-      <a href="#"
-      onclick="abrirDashboard()">
-        TechAcademy
+    <div class="brand">
+      <a href="#" onclick="abrirDashboard();return false;">
+        <span class="brand-mark">TA</span>
+        <span>Tech<span class="brand-purple">Academy</span></span>
       </a>
-
     </div>
 
+    <div class="menu-label">PRINCIPAL</div>
     <nav class="menu">
-
-      <a href="#"
-      onclick="abrirDashboard()">
-        🏠 Dashboard
-      </a>
-
-      <a href="cursos.html">
-        📚 Cursos
-      </a>
-
-      <a href="cursos-aluno.html"
-      onclick="renderMeusCursos()">
-        📚 Meus Cursos
-      </a>
-
-      
-
-      
-
-      <a href="perfil.html">
-        👤 Perfil
-      </a>
-
+      <a class="active" href="#" onclick="abrirDashboard();return false;"><span>⌂</span> Dashboard</a>
+      <a href="cursos.html"><span>▣</span> Cursos</a>
+      <a href="cursos-aluno.html" onclick="renderMeusCursos && renderMeusCursos()"><span>▤</span> Meus Cursos</a>
+      <a href="perfil.html"><span>◯</span> Perfil</a>
     </nav>
 
+    <div class="menu-label">CONTA</div>
+    <nav class="menu">
+      <a href="#" onclick="sair();return false;"><span>↪</span> Sair</a>
+    </nav>
+
+    <div class="sidebar-profile" id="sidebar-profile"></div>
   </aside>
 
-  <!-- OVERLAY -->
-  <div
-  class="overlay"
-  id="overlay"
-  onclick="toggleSidebar()">
+  <div class="overlay" id="overlay" onclick="toggleSidebar()"></div>
 
-  </div>
-
-  <!-- MAIN -->
   <main class="main">
+    <header class="topbar">
+      <div class="mobile-title">Tech<span>Academy</span></div>
+      <div class="search-wrap">
+        <span>⌕</span>
+        <input id="portal-search" type="search" placeholder="Pesquisar no portal..." oninput="filtrarPortal(this.value)">
+      </div>
+      <div class="top-actions">
+        <button class="icon-btn" onclick="mostrarAviso()" title="Notificações">♧</button>
+        <button class="user-chip" onclick="abrirPerfil()" id="user-chip"></button>
+      </div>
+    </header>
 
-    <div id="app"></div>
-
+    <section class="content">
+      <div id="app"></div>
+    </section>
   </main>
-
 </div>
+
+<div id="toast" class="toast"></div>
 
 <script src="db.js"></script>
 <script src="app.js"></script>
-
 </body>
-
 </html>
