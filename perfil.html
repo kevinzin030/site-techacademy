@@ -1,174 +1,266 @@
 <!DOCTYPE html>
-<html lang="pt-br">
-
+<html lang="pt-BR">
 <head>
-
 <meta charset="UTF-8">
-
-<meta name="viewport"
-content="width=device-width, initial-scale=1.0">
-
-<title>Perfil</title>
-
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TechAcademy | Meu Perfil</title>
 <link rel="stylesheet" href="dashboard.css">
 
+<!-- Estilos exclusivos da página de perfil.
+     Eles sobrescrevem apenas os estilos do dashboard que causavam conflito. -->
+<style>
+body{
+  display:block !important;
+  min-height:100vh;
+  background:#08080b !important;
+  color:#f7f5ff !important;
+  overflow-x:hidden;
+}
+.perfil-page{
+  width:min(980px,calc(100% - 32px)) !important;
+  max-width:none !important;
+  margin:0 auto !important;
+  padding:34px 0 50px !important;
+}
+.perfil-topo{
+  display:flex !important;
+  align-items:center !important;
+  gap:14px !important;
+  margin-bottom:24px !important;
+}
+.perfil-topo button{
+  width:42px !important;height:42px !important;
+  border:1px solid #272431 !important;
+  border-radius:11px !important;
+  background:#111116 !important;
+  color:#fff !important;
+  font-size:19px !important;
+  cursor:pointer !important;
+  transition:.2s;
+}
+.perfil-topo button:hover{
+  border-color:#8b5cf6 !important;
+  background:#8b5cf615 !important;
+}
+.perfil-topo h2{
+  font-size:19px !important;
+  letter-spacing:-.3px;
+}
+.perfil-topo h2::first-letter{color:#fff}
+.perfil-card,
+.status-card,
+.documentos-card,
+.desativar-card{
+  background:linear-gradient(145deg,#15151c,#101015) !important;
+  border:1px solid #272431 !important;
+  border-radius:16px !important;
+  padding:24px !important;
+  margin-bottom:16px !important;
+  box-shadow:none !important;
+}
+.perfil-card{
+  text-align:center !important;
+  position:relative !important;
+  padding:34px 24px 30px !important;
+  overflow:hidden;
+}
+.perfil-card::before{
+  content:"";
+  position:absolute;
+  left:0;right:0;top:0;height:3px;
+  background:linear-gradient(90deg,#8b5cf6,#a78bfa);
+}
+.perfil-card img{
+  display:block;
+  width:128px !important;
+  height:128px !important;
+  border-radius:50% !important;
+  object-fit:cover !important;
+  border:3px solid #8b5cf6 !important;
+  margin:0 auto 15px !important;
+  box-shadow:0 0 30px #8b5cf633;
+  background:#19171f;
+}
+.perfil-card h1{
+  font-size:25px !important;
+  margin:0 0 7px !important;
+  letter-spacing:-.5px;
+}
+.perfil-card p{
+  color:#9995a8 !important;
+  font-size:13px !important;
+}
+.editar-foto{
+  position:absolute !important;
+  top:28px !important;
+  right:28px !important;
+  width:40px !important;
+  height:40px !important;
+  border:1px solid #8b5cf655 !important;
+  border-radius:10px !important;
+  background:#8b5cf618 !important;
+  color:#c4b5fd !important;
+  cursor:pointer !important;
+}
+.status-card h2,
+.documentos-card h2,
+.desativar-card h2{
+  font-size:16px !important;
+  margin:0 !important;
+}
+.perfil-info{
+  display:grid !important;
+  grid-template-columns:repeat(3,1fr);
+  gap:10px !important;
+  margin-top:16px !important;
+}
+.perfil-info span{
+  background:#111116 !important;
+  border:1px solid #272431 !important;
+  padding:15px !important;
+  border-radius:11px !important;
+  color:#9995a8 !important;
+  font-size:12px !important;
+}
+.perfil-info strong{
+  display:block;
+  color:#f5f3ff;
+  margin-top:7px;
+  font-size:14px;
+}
+.documentos-card > h2{margin-bottom:14px !important}
+.item-perfil{
+  padding:13px 14px;
+  margin-top:8px;
+  border:1px solid #272431;
+  border-radius:10px;
+  background:#111116;
+  color:#ddd9e7;
+  font-size:12px;
+}
+.documentos-card input{
+  display:block;
+  width:100% !important;
+  padding:12px 13px !important;
+  margin-top:9px !important;
+  border:1px solid #272431 !important;
+  border-radius:10px !important;
+  background:#0d0d12 !important;
+  color:#fff !important;
+  outline:none !important;
+  font-size:13px;
+}
+.documentos-card input:focus{
+  border-color:#8b5cf6 !important;
+  box-shadow:0 0 0 3px #8b5cf610;
+}
+.documentos-card button{
+  width:100% !important;
+  padding:12px !important;
+  margin-top:12px !important;
+  border:0 !important;
+  border-radius:10px !important;
+  background:linear-gradient(135deg,#8b5cf6,#6d28d9) !important;
+  color:#fff !important;
+  cursor:pointer !important;
+  font-weight:700 !important;
+  font-size:12px !important;
+}
+.desativar-card p{
+  color:#9995a8;
+  font-size:12px;
+  margin-top:7px;
+}
+.btn-desativar{
+  width:100% !important;
+  padding:12px !important;
+  margin-top:13px !important;
+  border:1px solid #ef444455 !important;
+  border-radius:10px !important;
+  background:#ef444410 !important;
+  color:#fca5a5 !important;
+  cursor:pointer !important;
+  font-weight:700 !important;
+  font-size:12px !important;
+}
+.btn-sair{
+  display:block;
+  width:100% !important;
+  padding:13px !important;
+  margin-top:16px !important;
+  border:1px solid #272431 !important;
+  border-radius:10px !important;
+  background:#111116 !important;
+  color:#ddd9e7 !important;
+  cursor:pointer !important;
+  font-weight:700 !important;
+  font-size:12px !important;
+}
+.btn-sair:hover{border-color:#8b5cf655 !important;color:#fff !important}
+@media(max-width:700px){
+  .perfil-page{width:min(100% - 24px,980px) !important;padding:22px 0 35px !important}
+  .perfil-card{padding:30px 18px 25px !important}
+  .perfil-info{grid-template-columns:1fr !important}
+  .editar-foto{top:18px !important;right:18px !important}
+}
+</style>
 </head>
 
 <body onload="carregarPerfil()">
-
 <div class="perfil-page">
 
-  <!-- TOPO -->
   <div class="perfil-topo">
-
-    <button onclick="voltarDashboard()">
-      ←
-    </button>
-
-    <h2>Tech Academy</h2>
-
+    <button onclick="voltarDashboard()" aria-label="Voltar">←</button>
+    <h2>Tech<span style="color:#a78bfa">Academy</span></h2>
   </div>
 
-  <!-- PERFIL -->
   <div class="perfil-card">
-
-    <img id="fotoPerfil">
-
-    <input
-    type="file"
-    hidden
-    id="uploadFoto"
-    onchange="trocarFoto(event)">
-
-    <button
-    class="editar-foto"
-    onclick="
-    document.getElementById('uploadFoto').click()
-    ">
-
-      ✏️
-
-    </button>
-
+    <img id="fotoPerfil" alt="Foto do perfil">
+    <input type="file" hidden id="uploadFoto" accept="image/*" onchange="trocarFoto(event)">
+    <button class="editar-foto" onclick="document.getElementById('uploadFoto').click()" aria-label="Alterar foto">✏️</button>
     <h1 id="nomePerfil"></h1>
-
     <p id="emailPerfil"></p>
-
   </div>
 
-  <!-- STATUS -->
   <div class="status-card">
-
-    <h2>⚙️ Status Ativo</h2>
-
+    <h2>⚙️ Status da conta</h2>
     <div class="perfil-info">
-
-      <span>
-        📅 Cadastro:
-        <strong id="dataCadastro"></strong>
-      </span>
-
-      <span>
-        📚 Cursos:
-        <strong id="totalCursos"></strong>
-      </span>
-
-      <span>
-        🏆 Certificados:
-        <strong id="totalCertificados"></strong>
-      </span>
-
+      <span>📅 Cadastro:<strong id="dataCadastro"></strong></span>
+      <span>📚 Cursos:<strong id="totalCursos"></strong></span>
+      <span>🏆 Certificados:<strong id="totalCertificados"></strong></span>
     </div>
-
   </div>
 
-  <!-- CURSOS -->
   <div class="documentos-card">
-
     <h2>📚 Cursos em andamento</h2>
-
     <div id="listaCursos"></div>
-
   </div>
 
-  <!-- CERTIFICADOS -->
   <div class="documentos-card">
-
     <h2>🏆 Certificados</h2>
-
     <div id="listaCertificados"></div>
-
   </div>
 
-  <!-- EDITAR DADOS -->
   <div class="documentos-card">
-
-    <h2>Editar Dados</h2>
-
-    <input
-    type="text"
-    id="novoNome"
-    placeholder="Nome">
-
-    <input
-    type="text"
-    id="novoCpf"
-    placeholder="CPF">
-
-    <input
-    type="date"
-    id="novoNascimento">
-
-    <input
-    type="text"
-    id="novoLogin"
-    placeholder="Login">
-
-    <input
-    type="password"
-    id="novaSenha"
-    placeholder="Nova senha">
-
-    <button onclick="salvarAlteracoes()">
-
-      SALVAR ALTERAÇÕES
-
-    </button>
-
+    <h2>✏️ Editar dados</h2>
+    <input type="text" id="novoNome" placeholder="Nome">
+    <input type="text" id="novoCpf" placeholder="CPF">
+    <input type="date" id="novoNascimento">
+    <input type="text" id="novoLogin" placeholder="Login">
+    <input type="password" id="novaSenha" placeholder="Nova senha">
+    <button onclick="salvarAlteracoes()">SALVAR ALTERAÇÕES</button>
   </div>
 
-  <!-- DESATIVAR -->
   <div class="desativar-card">
-
-    <h2>Desativar Conta</h2>
-
-    <p>
-      Sua conta será removida permanentemente.
-    </p>
-
-    <button
-    class="btn-desativar"
-    onclick="desativarConta()">
-
-      DESATIVAR CONTA
-
-    </button>
-
+    <h2>⚠️ Desativar conta</h2>
+    <p>Sua conta será removida permanentemente.</p>
+    <button class="btn-desativar" onclick="desativarConta()">DESATIVAR CONTA</button>
   </div>
 
-  <!-- SAIR -->
-  <button
-class="btn-sair"
-onclick="confirmarSaida()">
-
-    SAIR
-
-</button>
-
+  <button class="btn-sair" onclick="confirmarSaida()">SAIR DA CONTA</button>
 </div>
 
 <script src="db.js"></script>
 <script src="perfil.js"></script>
-
 </body>
 </html>
